@@ -7,7 +7,8 @@ properties() { '
 kernel.string=Kernel HMP
 do.devicecheck=1
 do.modules=0
-do.cleanup=0
+do.systemless=1
+do.cleanup=1
 do.cleanuponabort=0
 device.name1=gemini
 supported.versions=9.0
