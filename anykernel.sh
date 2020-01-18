@@ -11,7 +11,7 @@ do.systemless=1
 do.cleanup=1
 do.cleanuponabort=0
 device.name1=gemini
-supported.versions=9.0
+supported.versions=10
 '; } # end properties
 
 # shell variables
