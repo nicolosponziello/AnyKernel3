@@ -1,0 +1,130 @@
+	#Based on Floppy Battery
+	
+	#Set governor Interactive governor for the LITTLE and BIG cluster
+		write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
+		write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "interactive"
+		write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "interactive"
+		write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "interactive"
+
+	#Tweak Interactive Governor for the BIG cluster
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/go_hispeed_load 300
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay 0
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/timer_rate 30000
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/hispeed_freq 0
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/timer_slack 480000
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads "99 1500000:110 1500000:130 21000000:150"
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/min_sample_time 19000
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/boost 0
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/align_windows 0
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_migration_notif 1
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_sched_load 0
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/max_freq_hysteresis0
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/boostpulse_duration 0
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/go_hispeed_load 300
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay 0
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/timer_rate 30000
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/hispeed_freq 0
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/timer_slack 480000
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads "99 1500000:110 1500000:130 21000000:150"
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/min_sample_time 19000
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/boost 0
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/align_windows 0
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_migration_notif 1
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_sched_load 0
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/max_freq_hysteresis0
+		write /sys/devices/system/cpu/cpu2/cpufreq/interactive/boostpulse_duration 0
+
+	#Tweak Interactive Governor for the LITTLE cluster
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 96
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 0
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 30000
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 0
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack 80000
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "95"
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 19000
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boost 0
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/align_windows 0
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif 1
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load 0
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis 0
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration 0
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 96
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 0
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 30000
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 0
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack 80000
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "95"
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 19000
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boost 0
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/align_windows 0
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif 1
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load 0
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis 0
+		write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration 0
+
+	#Enable CPU Boost
+		write /sys/module/cpu_boost/parameters/input_boost_freq "0:0 1:0 2:0 3:0"
+		write /sys/module/cpu_boost/parameters/input_boost_ms 0
+
+	#Enable CPU power saving
+		write /sys/module/workqueue/parameters/power_efficient Y
+
+	#Enable Arch Power
+		write /sys/kernel/sched/arch_power 1
+
+	#Disable CRC
+		write /sys/module/mmc_core/parameters/use_spi_crc 0
+
+	#Tweak HMP Scheduler for correcting BIG Cluster utilization
+		write /proc/sys/kernel/sched_window_stats_policy 2
+		write /proc/sys/kernel/sched_upmigrate 95 
+		write /proc/sys/kernel/sched_downmigrate 80
+		write /proc/sys/kernel/sched_spill_nr_run 5 
+		write /proc/sys/kernel/sched_spill_load 96
+		write /proc/sys/kernel/sched_init_task_load 40
+		write /proc/sys/kernel/sched_heavy_task 96
+		write /proc/sys/kernel/sched_enable_power_aware 1
+		write /proc/sys/kernel/sched_upmigrate_min_nice 5 
+		write /proc/sys/kernel/sched_ravg_hist_size 4
+		write /proc/sys/kernel/sched_small_wakee_task_load 5 
+		write /proc/sys/kernel/sched_wakeup_load_threshold 110
+		write /proc/sys/kernel/sched_small_task 21 
+		write /proc/sys/kernel/sched_rt_runtime_us 950000
+		write /proc/sys/kernel/sched_rt_period_us 1000000
+		write /proc/sys/kernel/sched_migration_fixup 1 
+		write /proc/sys/kernel/sched_freq_dec_notify 410000
+		write /proc/sys/kernel/sched_freq_inc_notify 600000
+		write /proc/sys/kernel/sched_boost 0
+
+	#Scheduler I/O 
+		write /sys/block/sda/queue/read_ahead_kb 512
+		write /sys/block/sde/queue/read_ahead_kb 512
+
+	#VM tweaks
+		write /proc/sys/vm/swappiness 20
+		write /proc/sys/vm/vfs_cache_pressure 100
+		write /proc/sys/vm/dirty_ratio 80
+		write /proc/sys/vm/dirty_background_ratio 50
+		write /proc/sys/vm/min_free_kbytes 4096
+		write /proc/sys/vm/dirty_expire_centisecs 100
+		write /proc/sys/vm/dirty_writeback_centisecs 250
+		write /proc/sys/vm/oom_kill_allocating_task 0
+		write /proc/sys/vm/page-cluster 3
+
+	#Entropy
+		write /proc/sys/kernel/random/read_wakeup_threshold 64
+		write /proc/sys/kernel/random/write_wakeup_threshold 896
+
+	#Set noop block I/O scheduler
+		setprop sys.io.scheduler "anxiety"
+
+	#TCP
+		write /proc/sys/net/ipv4/tcp_congestion_control westwood
+
+	#Tweaking GPU
+		write /sys/class/kgsl/kgsl-3d0/devfreq/governor powersave
+		write /sys/class/kgsl/kgsl-3d0/max_gpuclk 410000000
+
+    #Underclock
+        write /sys/module/cpufreq/parameters/enable_underclock_balanced N
+        write /sys/module/cpufreq/parameters/enable_underclock_battery Y
